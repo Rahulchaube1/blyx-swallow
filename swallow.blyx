@@ -1,0 +1,70 @@
+use recordspan;
+use adlerbytes;
+
+fn swallow_num(value: i64) -> f64 {
+    at([value], 0)
+}
+
+fn swallow_bytes(values: vector) -> bool {
+    let mut i = 0;
+    while i < len(values) {
+        let value = at(values, i);
+        if !(value >= 0.0 && value <= 255.0 && value % 1.0 == 0.0) {
+            return false;
+        }
+        i += 1;
+    }
+    true
+}
+
+fn swallow_finite(values: vector) -> bool {
+    let mut i = 0;
+    while i < len(values) {
+        let value = at(values, i);
+        if !(value - value == 0.0) {
+            return false;
+        }
+        i += 1;
+    }
+    true
+}
+
+fn swallow_counts(values: vector) -> bool {
+    let mut i = 0;
+    while i < len(values) {
+        let value = at(values, i);
+        if !(value >= 0.0 && value <= 9007199254740991.0 && value % 1.0 == 0.0) {
+            return false;
+        }
+        i += 1;
+    }
+    true
+}
+
+fn swallow_compute(lengths: vector, payload: vector, offset: f64, checksum: f64) -> vector {
+    if checksum > 4294967295.0 || sum(lengths) != swallow_num(len(payload)) {
+        return [];
+    }
+    let record = recordspan_locate(lengths, offset);
+    let digest = adlerbytes_digest(payload);
+    if len(record) == 0 || len(digest) == 0 {
+        return [];
+    }
+    let mut same = 0;
+    if at(digest, 0) == checksum {
+        same = 1;
+    }
+    [same, at(digest, 0), at(record, 0), at(record, 1)]
+}
+
+// Validate an exported payload's declared spans and checksum, then locate a byte.
+// Returns [checksum matches, actual Adler-32, record index, in-record offset]. The sum of payload lengths must equal the byte count. Use a verified cryptographic signature when authenticity is required.
+pub fn swallow_inspect(lengths: vector, payload: vector, offset: f64, checksum: f64) -> vector {
+    if !swallow_counts(lengths) { return []; }
+    if !swallow_bytes(payload) { return []; }
+    if !(offset >= 0.0 && offset <= 9007199254740991.0 && offset % 1.0 == 0.0) { return []; }
+    if !(checksum >= 0.0 && checksum <= 9007199254740991.0 && checksum % 1.0 == 0.0) { return []; }
+    let result = swallow_compute(lengths, payload, offset, checksum);
+    if !swallow_finite(result) { return []; }
+    result
+}

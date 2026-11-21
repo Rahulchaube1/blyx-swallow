@@ -1,0 +1,15 @@
+use swallow;
+
+fn main() {
+    let lengths = [1, 1];
+    let payload = [65, 66];
+    let offset = 1.0;
+    let checksum = 12976260.0;
+    let result = swallow_inspect(lengths, payload, offset, checksum);
+    if len(result) == 0 { println!("invalid"); return; }
+    let mut i = 0;
+    while i < len(result) {
+        println!(at(result, i));
+        i += 1;
+    }
+}
