@@ -1,0 +1,31 @@
+use std::cli;
+use console;
+use swallow;
+
+fn main() {
+    let argv = cli_args();
+    let count = args_len(argv);
+    if count == 1 && args_at(argv, 0) == "--help" {
+        println!("Validate an exported payload's declared spans and checksum, then locate a byte.");
+        println!("Usage: swallow lengths payload offset checksum");
+        println!("Vector arguments are comma-separated; use [] for an empty vector.");
+        return;
+    }
+    let mut result = [];
+    if count == 0 {
+        result = swallow_inspect([1, 1], [65, 66], 1.0, 12976260.0);
+    } else {
+        if count != 4 { stderr_line("Wrong argument count. Use --help."); process_exit(2); }
+        let lengths = console_vector(args_at(argv, 0));
+        let payload = console_vector(args_at(argv, 1));
+        let offset = console_value(args_at(argv, 2));
+        let checksum = console_value(args_at(argv, 3));
+        result = swallow_inspect(lengths, payload, offset, checksum);
+    }
+    if len(result) == 0 { stderr_line("Invalid input for Swallow. See the package input contract."); process_exit(1); }
+    let mut i = 0;
+    while i < len(result) {
+        println!(at(result, i));
+        i += 1;
+    }
+}

@@ -1,0 +1,44 @@
+fn adlerbytes_bytes(values: vector) -> bool {
+    let mut i = 0;
+    while i < len(values) {
+        let value = at(values, i);
+        if !(value >= 0.0 && value <= 255.0 && value % 1.0 == 0.0) {
+            return false;
+        }
+        i += 1;
+    }
+    true
+}
+
+fn adlerbytes_finite(values: vector) -> bool {
+    let mut i = 0;
+    while i < len(values) {
+        let value = at(values, i);
+        if !(value - value == 0.0) {
+            return false;
+        }
+        i += 1;
+    }
+    true
+}
+
+fn adlerbytes_compute(bytes: vector) -> vector {
+    let mut a = 1.0;
+    let mut b = 0.0;
+    let mut i = 0;
+    while i < len(bytes) {
+        a = (a + at(bytes, i)) % 65521.0;
+        b = (b + a) % 65521.0;
+        i += 1;
+    }
+    [b * 65536.0 + a, a, b]
+}
+
+// Compute the RFC 1950 Adler-32 checksum over a sequence of bytes.
+// Returns [unsigned checksum, rolling low accumulator, rolling high accumulator]. The empty digest is 1. Use for accidental corruption detection.
+pub fn adlerbytes_digest(bytes: vector) -> vector {
+    if !adlerbytes_bytes(bytes) { return []; }
+    let result = adlerbytes_compute(bytes);
+    if !adlerbytes_finite(result) { return []; }
+    result
+}

@@ -1,0 +1,57 @@
+{
+  "name": "blyx-swallow",
+  "displayName": "Blyx Swallow",
+  "description": "Validate an exported payload's declared spans and checksum, then locate a byte.",
+  "version": "0.1.0",
+  "publisher": "RahulChaube",
+  "license": "(MIT OR Apache-2.0)",
+  "icon": "logo.png",
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Snippets"
+  ],
+  "keywords": [
+    "blyx",
+    "swallow",
+    "framework"
+  ],
+  "homepage": "https://www.blyx-lang.space/packages/swallow",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Rahulchaube1/blyx-swallow.git",
+    "directory": "editor"
+  },
+  "bugs": {
+    "url": "https://github.com/Rahulchaube1/blyx-swallow/issues"
+  },
+  "extensionDependencies": [
+    "RahulChaube.blyx-language"
+  ],
+  "contributes": {
+    "snippets": [
+      {
+        "language": "blyx",
+        "path": "./snippets/framework.json"
+      }
+    ],
+    "walkthroughs": [
+      {
+        "id": "swallow.start",
+        "title": "Get started with Swallow",
+        "description": "Validate an exported payload's declared spans and checksum, then locate a byte.",
+        "steps": [
+          {
+            "id": "run",
+            "title": "Run the Swallow example",
+            "description": "Create an empty .blyx file, insert blyx-swallow-demo and choose **Blyx: Run File**.\n[Open the documentation](https://www.blyx-lang.space/packages/swallow)",
+            "media": {
+              "markdown": "walkthrough.md"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

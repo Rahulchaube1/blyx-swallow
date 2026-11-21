@@ -1,10 +1,14 @@
-<img src="assets/logo.png" width="112" height="112" alt="Swallow logo">
+<img src="assets/logo.png" width="112" height="112" alt="A cobalt barn swallow turns in flight with twin tail streamers trailing.">
 
 # Swallow
 
 Validate an exported payload's declared spans and checksum, then locate a byte. This Blyx workflow framework is part of the validation and configuration collection.
 
 A valid byte offset can point into the wrong serialized record if lengths have drifted. Verify the table and payload before interpreting the offset. [IETF RFC 1950, Adler-32](https://www.rfc-editor.org/rfc/rfc1950)
+
+## Editor extension
+
+Install **RahulChaube.blyx-swallow** to run the worked example and use the framework’s function completions in a Blyx file. Open an empty `.blyx` file, enter `blyx-swallow-demo`, then choose **Blyx: Run File**. [Editor downloads](https://www.blyx-lang.space/packages/swallow#editor) · [Download the extension](https://github.com/Rahulchaube1/blyxxxx/releases/download/framework-editors-v0.1.0/blyx-swallow-0.1.0.vsix) · [Starter with framework source](https://github.com/Rahulchaube1/blyxxxx/releases/download/framework-editors-v0.1.0/blyx-swallow-starter-0.1.0.zip)
 
 ## Install and run
 
@@ -84,7 +88,7 @@ This release includes identical copies of both library modules so a tagged clone
 
 ## Verification and contributions
 
-The regression suite in [tests.blyx](tests.blyx) checks the example, boundary cases and invalid inputs. Include a short reproducer and your compiler version in [an issue](https://github.com/Rahulchaube1/blyx-swallow/issues). The source is dual-licensed under [MIT](LICENSE-MIT) or [Apache-2.0](LICENSE-APACHE). The package artwork uses [Lucide icons](https://lucide.dev/license); see [artwork notices](assets/NOTICE.txt).
+The regression suite in [tests.blyx](tests.blyx) checks the example, boundary cases and invalid inputs. Include a short reproducer and your compiler version in [an issue](https://github.com/Rahulchaube1/blyx-swallow/issues). The source is dual-licensed under [MIT](LICENSE-MIT) or [Apache-2.0](LICENSE-APACHE). The [artwork notice](assets/NOTICE.txt) records credits for earlier editions.
 
 ## Connect with Rahul Chaube
 
